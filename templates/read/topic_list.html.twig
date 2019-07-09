@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des topics de {{ categorie.titre }}{% endblock %}
+
+{% block body %}
+<div id="wrapper-main">
+    {% if is_granted('ROLE_USER') %}
+        <a class="uk-button uk-button-default" href="{{ path('topic_add', {'id_cate':categorie.id}) }}">Nouveau</a>
+    {% endif %}
+
+    <table>
+        <thead>
+            <th>Nom du sujet</th>
+            <th>Auteur</th>
+            <th>Posté le</th>
+            <th># messages</th>
+            <th># vues</th>
+            <th>Dernier message</th>
+            {% if is_granted('ROLE_MODERATOR') %}
+                <th>
+                    Modération
+                </th>
+            {% endif %}
+        </thead>
+        <tbody>
+        {% for topic in topics %}
+
+            <tr>
+                <td><a href="{{ path('message_list', {'id':categorie.id, 'id_topic':topic.id}) }}">{{ topic.titre }}</a></td>
+                <td>par {{ topic.auteur.pseudo }}</td>
+                <td>{{ topic.datePosted | date('d/m/Y') }}</td>
+                <td>{{ topic.messages | length }}</td>
+                <td>{{ topic.nbvues }}</td>
+                <td>
+                    <p>Dernier message <a href="{{ path('forum_index') }}"><i class="fas fa-arrow-alt-circle-right"></i></a></p>
+                    {# TODO: /!\ s'assurer que tous les sujets ont un message #}
+                    <p>Le {{ topic.messages.first.datePosted | date('d/m/Y') }}</p>
+                </td>
+                {% if is_granted('ROLE_MODERATOR') %}
+                    <td>
+                        <a href="{{ path('topic_edit', {'id':topic.id}) }}"><i class="fas fa-edit"></i></a>
+                        {% if topic.verrouiller == false %}
+                            <a href="{{ path('topic_lock', {'id':topic.id}) }}"><i class="fas fa-lock"></i></a>
+                        {% else %}
+                            <a href="{{ path('topic_lock', {'id':topic.id}) }}"><i class="fas fa-lock-open"></i></a>
+                        {% endif %}
+                        <a href="{{ path('topic_delete', {'id':topic.id}) }}"><i class="fas fa-times"></i></a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent () }}
+<script src="https://kit.fontawesome.com/6277cc7eb0.js"></script>
+{% endblock %}

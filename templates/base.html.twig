@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/css/uikit.min.css" />
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+        <div id="wrapper-header">
+            <div id="hero">
+                <a href="{{ path('forum_index') }}"><img src="" alt="Forum Banner" /></a>
+            </div>
+            <nav class="uk-navbar-container uk-navbar">
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        {% if is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('user_profile') }}">Profil</a></li>
+                            <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                        {% else %}
+                            <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        </header>
+        <main>
+        {% block body %}{% endblock %}
+        </main>
+        {% block javascripts %}<script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/js/uikit.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/js/uikit-icons.min.js"></script>{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ topic.titre }}{% endblock %}
+
+{% block body %}
+<div id="wrapper-main">
+    {% if is_granted('ROLE_USER') %}
+        <a class="uk-button uk-button-default" href="{{ path('topic_add', {'id_cate':categorie.id}) }}">Nouveau</a>
+        <a class="uk-button uk-button-default" href="{{ path('message_add', {'id_topic':topic.id}) }}">Répondre</a>
+    {% endif %}
+    <div id="wrapper-messages">
+        {% for message in messages %}
+            <article class="article-message">
+                <aside>
+                    <div class="message-aut-img">
+                        <img src="{{ message.auteur.avatar }}" alt="User avatar" />
+                    </div>
+                    <article>
+                        <!-- Messages postés :<br /> -->
+                        Inscrit le : {{ message.auteur.dateInscription | date('d/m/Y') }}
+                    </article>
+                </aside>
+                <div class="right-message">
+                    <div class="header-message">
+                        <div class="date-message">Posté le {{ message.datePosted | date('d/m/Y') }}</div>
+                        {% if topic.verrouiller and is_granted('ROLE_MODERATOR') %}
+                            <div class="mod-tool-message">
+                                    <a href="{{ path('message_edit', {'id':message.id}) }}"><i class="fas fa-edit"></i></a>
+                                    <a href="{{ path('message_delete', {'id':message.id}) }}"><i class="fas fa-times"></i></a>
+                            </div>
+                        {% elseif (app.user == message.auteur or is_granted('ROLE_MODERATOR')) %}
+                            <div class="mod-tool-message">
+                                <a href="{{ path('message_edit', {'id':message.id}) }}"><i class="fas fa-edit"></i></a>
+                                <a href="{{ path('message_delete', {'id':message.id}) }}"><i class="fas fa-times"></i></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="body-message">{{ message.body }}</div>
+                    
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent () }}
+<script src="https://kit.fontawesome.com/6277cc7eb0.js"></script>
+{% endblock %}

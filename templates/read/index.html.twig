@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forum Index{% endblock %}
+
+{% block body %}
+<div id="wrapper-main">
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="uk-button uk-button-default" href="{{ path('categorie_add') }}">Nouveau</a>
+    {% endif %}
+
+    <table>
+        <thead>
+            <th>Nom de la catégorie</th>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>
+                    <h3><a href="{{ path('topic_list', {'id':categorie.id}) }}">{{ categorie.titre }}</a></h3>
+                    <p>{{ categorie.description }}</p>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent () }}
+    <script src="https://kit.fontawesome.com/6277cc7eb0.js"></script>
+{% endblock %}
