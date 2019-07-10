@@ -11,16 +11,14 @@
     <table>
         <thead>
             <th>Nom de l'utilisateur</th>
-            <th>E-mail</th>
         </thead>
         <tbody>
-        {% for utilisateur in users %}
+        {% for categorie in categories %}
             <tr>
-                <td>{{ utilisateur.pseudo }}</td>
-                <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.pseudo }}</td>
-                <td>{{ utilisateur.pseudo }}</td>
-                <td>{{ utilisateur.pseudo }}</td>
+                <td>
+                    <h3><a href="{{ path('topic_list', {'id':categorie.id}) }}">{{ categorie.titre }}</a></h3>
+                    <p>{{ categorie.description }}</p>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
