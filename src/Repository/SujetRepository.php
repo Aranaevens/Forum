@@ -47,6 +47,17 @@ class SujetRepository extends ServiceEntityRepository
         // ->getQuery();
     }
 
+    public function getAllFromUser($id_user)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT s
+                                FROM App\Entity\Sujet s
+                                WHERE s.auteur = :user');
+        $query->setParameter('user', $id_user);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Sujet[] Returns an array of Sujet objects
     //  */

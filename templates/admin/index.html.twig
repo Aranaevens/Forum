@@ -5,7 +5,7 @@
 {% block body %}
 <div id="wrapper-main">
     {% if is_granted('ROLE_ADMIN') %}
-        <a class="uk-button uk-button-default" href="{{ path('categorie_add') }}">Nouveau</a>
+        <a class="uk-button uk-button-default" href="{{ path('admin_add_user') }}">Nouveau</a>
     {% endif %}
 
     <table>

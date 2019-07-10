@@ -40,6 +40,17 @@ class MessageRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function getAllFromUser($id_user)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT m
+                                FROM App\Entity\Message m
+                                WHERE m.auteur = :user');
+        $query->setParameter('user', $id_user);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Messages;
+use App\Entity\Sujets;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,9 +28,20 @@ class ProfileController extends AbstractController
 {
     /**
      * @Route("/", name="user_profile")
+     * @Route("/{id}", name="that_user_profile")
      */
-    public function index()
+    public function index(User $user)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $messages = $this->getDoctrine()
+                    ->getRepository(Message::class)
+                    ->getAllFromUser($user->getId());
+
+        $sujet = $this->getDoctrine()
+                    ->getRepository(Sujet::class)
+                    ->getAllFromUser($user->getId());
+        
         return $this->render('profile/index.html.twig');
     }
 
