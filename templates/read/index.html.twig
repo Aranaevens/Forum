@@ -10,15 +10,17 @@
 
     <table>
         <thead>
-            <th>Nom de la catégorie</th>
+            <th>Nom de l'utilisateur</th>
+            <th>E-mail</th>
         </thead>
         <tbody>
-        {% for categorie in categories %}
+        {% for utilisateur in users %}
             <tr>
-                <td>
-                    <h3><a href="{{ path('topic_list', {'id':categorie.id}) }}">{{ categorie.titre }}</a></h3>
-                    <p>{{ categorie.description }}</p>
-                </td>
+                <td>{{ utilisateur.pseudo }}</td>
+                <td>{{ utilisateur.email }}</td>
+                <td>{{ utilisateur.pseudo }}</td>
+                <td>{{ utilisateur.pseudo }}</td>
+                <td>{{ utilisateur.pseudo }}</td>
             </tr>
         {% endfor %}
         </tbody>
