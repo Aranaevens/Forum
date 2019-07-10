@@ -40,7 +40,7 @@ class ReadController extends AbstractController
     }
 
     /**
-     * @Route("/message/{id}/delete", name="message_delete", methods="DELETE")
+     * @Route("/message/{id}/delete", name="message_delete")
      */
     public function deleteMessage(Message $message, ObjectManager $manager): Response
     {

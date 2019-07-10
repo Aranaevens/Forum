@@ -1,0 +1,16 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer le profil{% endblock %}
+
+{% block body %}
+
+<div>
+    {{ render(controller('App\\Controller\\ProfileController::edit_account')) }}
+</div>
+
+<div>
+    {{ render(controller('App\\Controller\\ProfileController::edit_avatar')) }}
+</div>
+
+{% endblock %}

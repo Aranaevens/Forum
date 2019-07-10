@@ -43,7 +43,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $avatar;
 

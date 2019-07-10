@@ -3,5 +3,8 @@
 {% block title %}Profil{% endblock %}
 
 {% block body %}
-{{ dump(app.user) }}
+    <div>
+        <img src="{{ app.user.avatar}}" alt="User avatar" />
+        <h3>{{ app.user.pseudo }}</h3>
+    </div>
 {% endblock %}

@@ -44,7 +44,8 @@ class WriteController extends AbstractController
                     ])
                     ->add('body',TextareaType::class, [
                         'mapped' => false,
-                        'required' => true
+                        'required' => true,
+                        'attr' => array('class' => 'ckeditor')
                     ])
                     ->add('Poster', SubmitType::class)
                     ->getForm();
@@ -97,7 +98,8 @@ class WriteController extends AbstractController
                     ->add('body',TextareaType::class, [
                         'data' => $message->getBody(),
                         'mapped' => false,
-                        'required' => true
+                        'required' => true,
+                        'attr' => array('class' => 'ckeditor')
                     ])
                     ->add('Poster', SubmitType::class)
                     ->getForm();
@@ -133,7 +135,8 @@ class WriteController extends AbstractController
 
         $form = $this->createFormBuilder($message)
                     ->add('body',TextareaType::class, [
-                        'required' => true
+                        'required' => true,
+                        'attr' => array('class' => 'ckeditor')
                     ])
                     ->add('Poster', SubmitType::class)
                     ->getForm();
@@ -147,7 +150,10 @@ class WriteController extends AbstractController
             $manager->persist($message);
             $manager->flush();
 
-            return $this->redirectToRoute('message_list');
+            return $this->redirectToRoute('message_list', [
+                'id' => $sujet->getCategorie()->getId(),
+                'id_topic' => $sujet->getId()
+            ]);
         }
         
         return $this->render('write/new_message.html.twig', [
@@ -169,7 +175,8 @@ class WriteController extends AbstractController
         }
         $form = $this->createFormBuilder($message)
                     ->add('body',TextareaType::class, [
-                        'required' => true
+                        'required' => true,
+                        'attr' => array('class' => 'ckeditor')
                     ])
                     ->add('Poster', SubmitType::class)
                     ->getForm();
@@ -204,12 +211,13 @@ class WriteController extends AbstractController
             $categorie = new Categorie();
         }
 
-        $form = $this->createFormBuilder($message)
+        $form = $this->createFormBuilder($categorie)
                     ->add('titre',TextType::class, [
                         'required' => true
                     ])
                     ->add('description',TextareaType::class, [
-                        'required' => true
+                        'required' => true,
+                        'attr' => array('class' => 'ckeditor')
                     ])
                     ->add('Poster', SubmitType::class)
                     ->getForm();

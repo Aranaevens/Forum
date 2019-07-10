@@ -29,6 +29,16 @@ class UserRepository extends ServiceEntityRepository
         $query->setParameter('pseudo', $pseudo);
         return $query->execute();
     }
+
+    public function getAll()
+    {
+        $em = $this->getEntityManager();
+        $q = $em->createQuery(
+                            'SELECT u
+                            FROM App\Entity\User u');
+        return $q->execute();
+    }
+    
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
