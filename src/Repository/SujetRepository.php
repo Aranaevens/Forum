@@ -58,6 +58,17 @@ class SujetRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function getAllFromSearch($pattern)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT s
+                                FROM App\Entity\Sujet s
+                                WHERE s.titre LIKE :pat');
+        $query->setParameter('pat', '%'.$pattern.'%');
+        return $query->execute();
+    }
+
     // /**
     //  * @return Sujet[] Returns an array of Sujet objects
     //  */

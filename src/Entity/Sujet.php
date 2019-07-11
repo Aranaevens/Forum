@@ -60,6 +60,7 @@ class Sujet
     {
         $this->messages = new ArrayCollection();
         $this->datePosted = new \DateTime;
+        $this->verrouiller = false;
     }
 
     // public function getMCount() :?int

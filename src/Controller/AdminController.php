@@ -78,7 +78,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/{id}/edit", name="admin_edit_user")
      */
-    public function edit_account(User $user, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder)
+    public function edit_account(User $user, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 

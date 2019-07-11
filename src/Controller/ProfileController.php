@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Messages;
-use App\Entity\Sujets;
+use App\Entity\Message;
+use App\Entity\Sujet;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -56,13 +56,14 @@ class ProfileController extends AbstractController
     /**
      * @Route("/edit/account", name="user_account")
      */
-    public function edit_account(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder)
+    public function edit_account(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         
         $user = $this->getUser();
 
         $form = $this->createFormBuilder($user)
+                    ->setAction($this->generateUrl("user_account"))
                     ->add('email', EmailType::class, [
                         'required' => true,
                         'label' => 'Adresse e-mail'])
@@ -108,7 +109,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/edit/avatar", name="user_avatar", methods={"GET", "POST"})
      */
-    public function edit_avatar(Request $request, ObjectManager $manager)
+    public function edit_avatar(Request $request, ObjectManager $manager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         

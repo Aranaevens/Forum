@@ -129,6 +129,11 @@ class WriteController extends AbstractController
      */
     public function addMessage(Sujet $sujet, Request $request, ObjectManager $manager): Response
     {
+        if ($sujet->getVerrouiller())
+        {
+            $this->denyAccessUnlessGranted('ROLE_MODERATOR');
+        }
+        
         $this->denyAccessUnlessGranted('ROLE_USER');
         $user = $this->getUser();
         $message = new Message();

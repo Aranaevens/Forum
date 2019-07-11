@@ -8,16 +8,19 @@
         <a class="uk-button uk-button-default" href="{{ path('categorie_add') }}">Nouveau</a>
     {% endif %}
 
-    <table>
+    <table class="uk-table uk-table-striped uk-table-middle">
         <thead>
-            <th>Nom de l'utilisateur</th>
+            <th>Nom de la catégorie</th>
+            <th>Description</th> 
         </thead>
         <tbody>
         {% for categorie in categories %}
             <tr>
-                <td>
+                <td class="uk-width-1-4">
                     <h3><a href="{{ path('topic_list', {'id':categorie.id}) }}">{{ categorie.titre }}</a></h3>
-                    <p>{{ categorie.description }}</p>
+                </td>
+                <td>
+                    {{ categorie.description }}
                 </td>
             </tr>
         {% endfor %}

@@ -51,6 +51,18 @@ class MessageRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function getAllFromSearch($pattern)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT m
+                                FROM App\Entity\Message m
+                                WHERE m.body LIKE :pat');
+        
+        $query->setParameter('pat', '%'.$pattern.'%');
+        return $query->execute();
+    }
+
     // /**
     //  * @return Message[] Returns an array of Message objects
     //  */

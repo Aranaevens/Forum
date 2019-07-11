@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultats de recherche{% endblock %}
+
+{% block body %}
+<div id="wrapper-main">
+    <div id="wrapper-results">
+        <h3>Résultat de la recherche '{{ pattern }}'</h3>
+        <p>{{ posts | length }} messages trouvés :</p>
+        <table class="uk-table uk-table-striped uk-table-middle">
+            <thead>
+                <th>Nom du sujet</th>
+                <th>Auteur du message</th>
+                <th>Posté le</th>
+            </thead>
+            <tbody>
+            {% for message in posts %}
+                <tr>
+                    <td><a href="{{ path('message_list', {'id':message.sujet.categorie.id, 'id_topic':message.sujet.id}) }}">{{ message.sujet.titre }}</a></td>
+                    <td>par {{ message.auteur.pseudo }}</td>
+                    <td>{{ message.datePosted | date('d/m/Y') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <hr />
+        <p>{{ topics | length }} sujets trouvés :</p>
+        <table class="uk-table uk-table-striped uk-table-middle">
+            <thead>
+                <th>Nom du sujet</th>
+                <th>Auteur du sujet</th>
+                <th>Posté le</th>
+            </thead>
+            <tbody>
+            {% for topic in topics %}
+                <tr>
+                    <td><a href="{{ path('message_list', {'id':topic.categorie.id, 'id_topic':topic.id}) }}">{{ topic.titre }}</a></td>
+                    <td>par {{ topic.auteur.pseudo }}</td>
+                    <td>{{ topic.datePosted | date('d/m/Y') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent () }}
+<script src="https://kit.fontawesome.com/6277cc7eb0.js"></script>
+{% endblock %}

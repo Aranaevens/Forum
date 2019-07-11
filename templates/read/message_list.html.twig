@@ -10,7 +10,7 @@
     {% endif %}
     <div id="wrapper-messages">
         {% for message in messages %}
-            <article class="article-message">
+            <article class="article-message" id="{{ loop.index }}">
                 <aside>
                     <div class="message-aut-img">
                         <img src="{{ message.auteur.avatar }}" alt="User avatar" />
@@ -29,10 +29,14 @@
                                     <a href="{{ path('message_edit', {'id':message.id}) }}"><i class="fas fa-edit"></i></a>
                                     <a href="{{ path('message_delete', {'id':message.id}) }}"><i class="fas fa-times"></i></a>
                             </div>
-                        {% elseif (app.user == message.auteur or is_granted('ROLE_MODERATOR')) %}
+                        {% elseif is_granted('ROLE_MODERATOR') or (app.user == message.auteur and not loop.first) %}
                             <div class="mod-tool-message">
                                 <a href="{{ path('message_edit', {'id':message.id}) }}"><i class="fas fa-edit"></i></a>
                                 <a href="{{ path('message_delete', {'id':message.id}) }}"><i class="fas fa-times"></i></a>
+                            </div>
+                        {% elseif app.user == message.auteur %}
+                            <div class="mod-tool-message">
+                                <a href="{{ path('message_edit', {'id':message.id}) }}"><i class="fas fa-edit"></i></a>
                             </div>
                         {% endif %}
                     </div>

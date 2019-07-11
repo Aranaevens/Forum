@@ -8,7 +8,7 @@
         <a class="uk-button uk-button-default" href="{{ path('topic_add', {'id_cate':categorie.id}) }}">Nouveau</a>
     {% endif %}
 
-    <table>
+    <table class="uk-table uk-table-striped uk-table-middle">
         <thead>
             <th>Nom du sujet</th>
             <th>Auteur</th>
@@ -26,15 +26,15 @@
         {% for topic in topics %}
 
             <tr>
-                <td><a href="{{ path('message_list', {'id':categorie.id, 'id_topic':topic.id}) }}">{{ topic.titre }}</a></td>
+                <td><h4><a href="{{ path('message_list', {'id':categorie.id, 'id_topic':topic.id}) }}">{{ topic.titre }}</a></h4></td>
                 <td>par {{ topic.auteur.pseudo }}</td>
                 <td>{{ topic.datePosted | date('d/m/Y') }}</td>
                 <td>{{ topic.messages | length }}</td>
                 <td>{{ topic.nbvues }}</td>
                 <td>
-                    <p>Dernier message <a href="{{ path('forum_index') }}"><i class="fas fa-arrow-alt-circle-right"></i></a></p>
+                    <p>Dernier message <a href="{{ path('forum_index') }}"><i class="fas fa-arrow-alt-circle-right"></i></a><br />
                     {# TODO: /!\ s'assurer que tous les sujets ont un message #}
-                    <p>Le {{ topic.messages.first.datePosted | date('d/m/Y') }}</p>
+                    Le {{ topic.messages.first.datePosted | date('d/m/Y') }}</p>
                 </td>
                 {% if is_granted('ROLE_MODERATOR') %}
                     <td>
