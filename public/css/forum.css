@@ -1,3 +1,133 @@
-a, a:link, a:visited {
-    color: #B5BAC4;
+:root {
+    --main-blue: #3986D7;
+    --main-gray: #B5BAC4;
+}
+
+.uk-link, a, a:link, a:visited {
+    color: var(--main-gray);
+}
+
+.uk-link:hover, a:hover {
+    color: var(--main-blue);
+    text-decoration: none;
+}
+
+.a-black {
+    color: black;
+}
+
+#hero {
+    margin: 1em auto 1em auto;
+    text-align: center;
+}
+
+.uk-navbar-right {
+    margin-right: 12.5%;
+}
+
+#wrapper-main {
+    width: 75%;
+    margin: 0 auto 0 auto;
+}
+
+.create-tools {
+    margin-top: 1.5em;
+    margin-left: 1em;
+}
+
+.create-tools .uk-button {
+    background-color: var(--main-blue);
+    color: white;
+}
+
+.space-evenly {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/*--------------------Message List CSS--------------------*/
+
+#wrapper-messages {
+    padding: 1em 1em 0 1em;
+}
+
+.article-message {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid var(--main-gray);
+    margin-bottom: 1em;
+}
+
+.article-message aside {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em 0 1em;
+    border-style: solid;
+    border-color: var(--main-gray);
+    border-width: 0 1px 0 0;
+}
+
+.message-aut-pseudo {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.message-aut-img {
+    margin: 0.5em auto 1.5em auto;
+    width: 10em;
+    max-height: 15em;
+    text-align: center;
+}
+
+.message-aut-img img {
+    object-fit: cover;
+}
+
+.right-message {
+    padding: 0 0 0 1em;
+    width: 100%;
+}
+
+.header-message {
+    border-style: solid;
+    border-color: var(--main-gray);
+    border-width: 0 0 1px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header-mod-tools {
+    padding-right: 1em;
+}
+
+.header-mod-tools a i {
+    color: var(--main-blue);
+}
+
+/*--------------------Profile CSS--------------------*/
+
+#profile {
+    display: flex;
+    flex-direction: column;
+    margin: 1em auto 1em auto;
+    width: 50%;
+}
+
+#profile h3 {
+    text-align: center;
+}
+
+#profile img {
+    width: 20em;
+    max-height: 25em;
+    object-fit: cover;
+    margin: 0 auto 1em auto;
+}
+
+#profile p {
+    margin: 0;
 }

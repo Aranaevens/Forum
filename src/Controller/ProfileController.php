@@ -30,19 +30,28 @@ class ProfileController extends AbstractController
      * @Route("/", name="user_profile")
      * @Route("/{id}", name="that_user_profile")
      */
-    public function index(User $user)
+    public function index(User $user = null)
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
+
+        if (!$user)
+        {
+            $user = $this->getUser();
+        }
 
         $messages = $this->getDoctrine()
                     ->getRepository(Message::class)
                     ->getAllFromUser($user->getId());
 
-        $sujet = $this->getDoctrine()
+        $sujets = $this->getDoctrine()
                     ->getRepository(Sujet::class)
                     ->getAllFromUser($user->getId());
         
-        return $this->render('profile/index.html.twig');
+        return $this->render('profile/index.html.twig', [
+            'utilisateur' => $user,
+            'messages' => count($messages),
+            'sujets' => count($sujets) 
+        ]);
     }
 
     /**

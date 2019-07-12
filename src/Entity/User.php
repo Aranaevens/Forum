@@ -168,7 +168,14 @@ class User implements UserInterface
 
     public function getAvatar(): ?string
     {
-        return $this->avatar;
+        if ($this->avatar)
+        {
+            return $this->avatar;
+        }
+        else
+        {
+            return '/ressources/Avatar_of_the_Void_icon.png';
+        }
     }
 
     public function setAvatar(?string $avatar): self

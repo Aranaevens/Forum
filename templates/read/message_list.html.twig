@@ -4,26 +4,36 @@
 
 {% block body %}
 <div id="wrapper-main">
+    
     {% if is_granted('ROLE_USER') %}
+    <div class="create-tools">
         <a class="uk-button uk-button-default" href="{{ path('topic_add', {'id_cate':categorie.id}) }}">Nouveau</a>
         <a class="uk-button uk-button-default" href="{{ path('message_add', {'id_topic':topic.id}) }}">Répondre</a>
+    </div>
     {% endif %}
+    
     <div id="wrapper-messages">
         {% for message in messages %}
             <article class="article-message" id="{{ loop.index }}">
                 <aside>
+                    <article class="message-aut-pseudo">
+                        {% if message.auteur.id != 0 %}
+                            <a class="a-black" href="{{ path('that_user_profile', {'id':message.id}) }}">{{ message.auteur.pseudo }}</a>
+                        {% else %}
+                            {{ message.auteur.pseudo }}
+                        {% endif %}
+                    </article>
                     <div class="message-aut-img">
                         <img src="{{ message.auteur.avatar }}" alt="User avatar" />
                     </div>
                     <article>
-                        <!-- Messages postés :<br /> -->
-                        <p>{{ message.auteur.pseudo }}</p>
                         Inscrit le : {{ message.auteur.dateInscription | date('d/m/Y') }}
                     </article>
                 </aside>
                 <div class="right-message">
                     <div class="header-message">
                         <div class="date-message">Posté le {{ message.datePosted | date('d/m/Y') }}</div>
+                        <div class="header-mod-tools">
                         {% if topic.verrouiller and is_granted('ROLE_MODERATOR') %}
                             <div class="mod-tool-message">
                                     <a href="{{ path('message_edit', {'id':message.id}) }}"><i class="fas fa-edit"></i></a>
@@ -39,9 +49,10 @@
                                 <a href="{{ path('message_edit', {'id':message.id}) }}"><i class="fas fa-edit"></i></a>
                             </div>
                         {% endif %}
+                        </div>
                     </div>
                     
-                    <div class="body-message">{{ message.body }}</div>
+                    <div class="body-message">{{ message.body|raw }}</div>
                     
                 </div>
             </article>

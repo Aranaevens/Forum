@@ -5,7 +5,9 @@
 {% block body %}
 <div id="wrapper-main">
     {% if is_granted('ROLE_USER') %}
+    <div class="create-tools">
         <a class="uk-button uk-button-default" href="{{ path('topic_add', {'id_cate':categorie.id}) }}">Nouveau</a>
+    </div>
     {% endif %}
 
     <table class="uk-table uk-table-striped uk-table-middle">
@@ -27,17 +29,21 @@
 
             <tr>
                 <td><h4><a href="{{ path('message_list', {'id':categorie.id, 'id_topic':topic.id}) }}">{{ topic.titre }}</a></h4></td>
-                <td>par {{ topic.auteur.pseudo }}</td>
+                <td>par {% if topic.auteur.id != 0 %}
+                        <a href="{{ path('that_user_profile', {'id':topic.id}) }}">{{ topic.auteur.pseudo }}</a>
+                    {% else %}
+                        {{ topic.auteur.pseudo }}
+                    {% endif %}</td>
                 <td>{{ topic.datePosted | date('d/m/Y') }}</td>
                 <td>{{ topic.messages | length }}</td>
                 <td>{{ topic.nbvues }}</td>
                 <td>
-                    <p>Dernier message <a href="{{ path('forum_index') }}"><i class="fas fa-arrow-alt-circle-right"></i></a><br />
+                    <p>Dernier message <a href="{{ path('message_list', {'id':categorie.id, 'id_topic':topic.id}) }}#{{ topic.messages | length }}"><i class="fas fa-arrow-alt-circle-right"></i></a><br />
                     {# TODO: /!\ s'assurer que tous les sujets ont un message #}
                     Le {{ topic.messages.first.datePosted | date('d/m/Y') }}</p>
                 </td>
                 {% if is_granted('ROLE_MODERATOR') %}
-                    <td>
+                    <td class="space-evenly">
                         <a href="{{ path('topic_edit', {'id':topic.id}) }}"><i class="fas fa-edit"></i></a>
                         {% if topic.verrouiller == false %}
                             <a href="{{ path('topic_lock', {'id':topic.id}) }}"><i class="fas fa-lock"></i></a>

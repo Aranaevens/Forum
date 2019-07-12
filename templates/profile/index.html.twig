@@ -3,8 +3,10 @@
 {% block title %}Profil{% endblock %}
 
 {% block body %}
-    <div>
-        <img src="{{ app.user.avatar}}" alt="User avatar" />
-        <h3>{{ app.user.pseudo }}</h3>
+    <div id='profile'>
+        <h3>{{ utilisateur.pseudo }}</h3>
+        <img src="{{ utilisateur.avatar}}" alt="User avatar" />
+        <p>Nombre de messages postés : {{ messages }}</p>
+        <p>Nombre de sujets créés : {{ sujets }}</p>
     </div>
 {% endblock %}

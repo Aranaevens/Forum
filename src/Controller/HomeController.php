@@ -43,7 +43,7 @@ class HomeController extends AbstractController
                             'placeholder' => 'Rechercher...',
                             'type' => 'search',
                         ),
-                        'label' => ''
+                        'label' => false
                     ])
                     ->getForm();
 
@@ -58,7 +58,6 @@ class HomeController extends AbstractController
     public function research_handling(Request $request): Response
     {
         $pattern = trim($request->request->get('form')['search']);
-        dump($pattern);
         
         $posts = $this->getDoctrine()
                         ->getRepository(Message::class)
